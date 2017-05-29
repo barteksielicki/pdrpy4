@@ -1,6 +1,7 @@
 import json
 
 import networkx as nx
+import sys
 from geopy.distance import distance
 
 
@@ -46,12 +47,14 @@ class DistanceMeter:
             x0, y0 = p0
             x1, y1 = p1
             x2, y2 = p2
+            if not any([(x1 <= x0 <= x2), (x2 <= x0 <= x1), (y1 <= y0 <= y2), (y2 <= y0 <= y1)]):
+                return sys.maxsize
             nom = abs((y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1)
             denom = ((y2 - y1) ** 2 + (x2 - x1) ** 2) ** 0.5
             result = nom / denom
             return result
 
-        return min(edges, key=lambda edge: get_distance(edge[0].coords, edge[1].coords, node.coords))
+        return min(edges, key=lambda edge: get_distance(node.coords, edge[0].coords, edge[1].coords))
 
     def add_new_node(self, g, lat, lon):
         node = Node(None, lat, lon)
