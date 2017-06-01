@@ -1,0 +1,27 @@
+{
+  "name": "pdrpy4_frontend",
+  "homepage": "https://github.com/barteksielicki/pdrpy4",
+  "authors": [
+    "skarzynski",
+    "sielicki"
+  ],
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "pdrpy"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "heatmap.js-amd": "^2.0.5",
+    "leaflet": "^1.0.3",
+    "leaflet-heatmap": "https://raw.githubusercontent.com/pa7/heatmap.js/develop/plugins/leaflet-heatmap/leaflet-heatmap.js"
+  }
+}
