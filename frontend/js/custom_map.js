@@ -18,9 +18,13 @@ CustomMap.prototype.add_to_heatmap = function(heatmap_data) {
 };
 CustomMap.prototype.update_heatmap = function(heatmap_data) {
   console.log("Updating " + heatmap_data.length + " records.");
+  // inverse records
+  heatmap_data.forEach(function (element) {
+    element.velocity = -element.velocity
+  });
   heatmap_layer.setData({
-    max: 80,
-    min: 0,
+    min: -40,
+    max: 0,
     data: heatmap_data
   });
 };

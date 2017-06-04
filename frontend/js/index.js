@@ -16,14 +16,24 @@ var base_layer = L.tileLayer(
 var cfg = {
   // radius should be small ONLY if scaleRadius is true (or small radius is intended)
   // if scaleRadius is false it will be the constant radius used in pixels
-  "radius": 10,
-  "maxOpacity": .8,
+  "radius": 0.0002,
+  "maxOpacity": .6,
   // scales the radius based on map zoom
-  "scaleRadius": false,
+  "scaleRadius": true,
   // if set to false the heatmap uses the global maximum for colorization
   // if activated: uses the data maximum within the current map boundaries
   //   (there will always be a red spot with useLocalExtremas true)
-  useLocalExtrema: true,
+  useLocalExtrema: false,
+  // gradient
+  minOpacity: .6,
+  gradient: {
+    0: 'lime',
+    .1: 'green',
+    .2: 'cyan',
+    .6: 'yellow',
+    .8: 'orange',
+    .9: 'red'
+  },
   // which field name in your data represents the latitude - default "lat"
   latField: 'latitude',
   // which field name in your data represents the longitude - default "lng"
