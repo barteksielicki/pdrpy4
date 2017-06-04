@@ -4,14 +4,63 @@
     <meta charset="utf-8">
     <title>PDRPY4</title>
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+    <link rel="stylesheet"
+          href="bower_components/wickedpicker/dist/wickedpicker.min.css">
+    <link rel="stylesheet"
+          href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/wickedpicker/dist/wickedpicker.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/heatmap.js-amd/build/heatmap.js"></script>
     <script src="bower_components/leaflet-heatmap/index.js"></script>
   </head>
   <body>
-    <div id="main-map"></div>
+    <nav class="navbar navbar-inverse bg-primary">
+      <a class="navbar-brand" href="#">
+        <p>[PDRPY4]</p>
+      </a>
+    </nav>
+
+    <div class="container">
+      <div class="row justify-content-lg-right justify-content-md-right">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 form-container">
+          <form id="main-form" name="main-form">
+            <div class="form-group">
+              <label for="day-select">Dzień tygodnia: </label>
+              <select name="day-select" class="form-control">
+                <option value="0">Niedziela</option>
+                <option value="1">Poniedziałek</option>
+                <option value="2">Wtorek</option>
+                <option value="3">Środa</option>
+                <option value="4">Czwartek</option>
+                <option value="5">Piątek</option>
+                <option value="6">Sobota</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="time-input">Godzina: </label>
+              <br />
+              <input name="time-input" class="timepicker form-control" type="time">
+            </div>
+
+            <div class="form-group">
+              <label for="line-input">Linia: </label>
+              <input name="line-input" class="form-control" type="number">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+          <div id="main-map"></div>
+        </div>
+    </div>
+
     <script src="js/tram.js"></script>
     <script src="js/custom_map.js"></script>
     <script src="js/index.js"></script>

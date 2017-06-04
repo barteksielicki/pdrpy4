@@ -22,6 +22,9 @@
   "dependencies": {
     "heatmap.js-amd": "^2.0.5",
     "leaflet": "^1.0.3",
-    "leaflet-heatmap": "https://raw.githubusercontent.com/pa7/heatmap.js/develop/plugins/leaflet-heatmap/leaflet-heatmap.js"
+    "leaflet-heatmap": "https://raw.githubusercontent.com/pa7/heatmap.js/develop/plugins/leaflet-heatmap/leaflet-heatmap.js",
+    "jquery": "^3.2.1",
+    "wickedpicker": "^0.4.1",
+    "bootstrap": "^3.3.7"
   }
 }
