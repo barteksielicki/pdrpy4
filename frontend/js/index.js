@@ -26,20 +26,14 @@ var cfg = {
   useLocalExtrema: false,
   // gradient
   minOpacity: .6,
-  gradient: {
-    0: 'lime',
-    .1: 'green',
-    .2: 'cyan',
-    .6: 'yellow',
-    .8: 'orange',
-    .9: 'red'
-  },
   // which field name in your data represents the latitude - default "lat"
   latField: 'latitude',
   // which field name in your data represents the longitude - default "lng"
   lngField: 'longtitude',
   // which field name in your data represents the data value - default "value"
-  valueField: 'velocity'
+  valueField: 'velocity',
+  // blur
+  blur: 1
 };
 var heatmap_layer = new HeatmapOverlay(cfg);
 
@@ -62,8 +56,8 @@ $("#main-form").submit(function (event) {
   event.preventDefault(); // to stop the form from submitting
   var hour = 60 * 60 * 1000;
   var dateFrom = new Date(
-    $("select[name='day-select']").val() + "T" + $("input[name='time-input']").val()
-  ).getTime() + (2 * hour);
+      $("select[name='day-select']").val() + "T" + $("input[name='time-input']").val()
+    ).getTime() + (2 * hour);
   var dateTo = dateFrom + hour;
   var line = $("input[name='line-input']").val();
   var query_params = {
@@ -76,36 +70,16 @@ $("#main-form").submit(function (event) {
   $.get(API_URL, query_params)
     .done(function (data) {
       console.log("Done!");
-      map.update_heatmap(data.records);
+      var result = map.update_heatmap(data.records);
+      $("#summary-count").html(result.total);
+      $("#summary-average").html(result.average.toFixed(2) + " km/h");
     })
     .fail(function () {
       console.log("Error!");
+    })
+    .always(function () {
+      $('body').css({cursor: "default"});
     });
+    $('body').css({cursor: "progress"});
 });
 
-// tooltip
-var map_div = document.querySelector('#main-map');
-var tooltip = document.querySelector('.tooltip');
-
-function update_tooltip(x, y, value) {
-  // + 10 for distance to cursor
-  var transl = 'translate(' + (x + 10) + 'px, ' + (y + 10) + 'px)';
-  tooltip.style.webkitTransform = transl;
-  tooltip.innerHTML = value;
-};
-
-map_div.onmousemove = function(ev) {
-  var x = ev.layerX;
-  var y = ev.layerY;
-  var value = heatmap_layer._heatmap.getValueAt({
-    x: x,
-    y: y
-  });
-  console.log("x = ", x, "y = ", y, "speed = ", value);
-  tooltip.style.display = 'block';
-  update_tooltip(x, y, value);
-};
-// hide tooltip on mouseout
-map_div.onmouseout = function() {
-  tooltip.style.display = 'none';
-};
