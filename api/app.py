@@ -1,6 +1,7 @@
 import os
 import functools
 
+from sanic_cors import CORS
 from sanic import Sanic
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -13,7 +14,7 @@ sanic_config = {
 
 
 def init_app(config=None):
-    app = Sanic('motor_mongodb')
+    app = Sanic(__name__)
     app.config.update(config or {})
     app.db = functools.partial(
         _get_db,
@@ -23,6 +24,7 @@ def init_app(config=None):
         passwd=app.config.get('MONGO_PASSWD'),
         db_name=app.config.get('MONGO_DB_NAME'),
     )
+    CORS(app)
     return app
 
 
