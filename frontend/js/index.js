@@ -14,6 +14,11 @@ var base_layer = L.tileLayer(
 
 // heatmap layer
 var cfg = {
+  "gradient": {
+    0.15: 'red',
+    .5: 'blue',
+    .99: 'green'
+  },
   // radius should be small ONLY if scaleRadius is true (or small radius is intended)
   // if scaleRadius is false it will be the constant radius used in pixels
   "radius": 10,
@@ -23,13 +28,13 @@ var cfg = {
   // if set to false the heatmap uses the global maximum for colorization
   // if activated: uses the data maximum within the current map boundaries
   //   (there will always be a red spot with useLocalExtremas true)
-  useLocalExtrema: true,
+  "useLocalExtrema": false,
   // which field name in your data represents the latitude - default "lat"
-  latField: 'latitude',
+  "latField": 'latitude',
   // which field name in your data represents the longitude - default "lng"
-  lngField: 'longtitude',
+  "lngField": 'longtitude',
   // which field name in your data represents the data value - default "value"
-  valueField: 'velocity'
+  "valueField": 'velocity'
 };
 var heatmap_layer = new HeatmapOverlay(cfg);
 
@@ -59,6 +64,10 @@ $("#main-form").submit(function (event) {
   var query_params = {
     'timestamp_from': dateFrom, 'timestamp_to': dateTo
   };
+
+  if (line != "")
+    query_params['line'] = parseInt(line);
+
   $.get(API_URL, query_params)
     .done(function (data) {
       console.log("Done!");
@@ -68,3 +77,30 @@ $("#main-form").submit(function (event) {
       console.log("Error!");
     });
 });
+
+// tooltip
+var map_div = document.querySelector('#main-map');
+var tooltip = document.querySelector('.tooltip');
+
+function update_tooltip(x, y, value) {
+  // + 10 for distance to cursor
+  var transl = 'translate(' + (x + 10) + 'px, ' + (y + 10) + 'px)';
+  tooltip.style.webkitTransform = transl;
+  tooltip.innerHTML = value;
+};
+
+map_div.onmousemove = function(ev) {
+  var x = ev.layerX;
+  var y = ev.layerY;
+  var value = heatmap_layer._heatmap.getValueAt({
+    x: x,
+    y: y
+  });
+  console.log("x = ", x, "y = ", y, "speed = ", value);
+  tooltip.style.display = 'block';
+  update_tooltip(x, y, value);
+};
+// hide tooltip on mouseout
+map_div.onmouseout = function() {
+  tooltip.style.display = 'none';
+};
