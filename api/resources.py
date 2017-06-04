@@ -27,21 +27,32 @@ def parse_request_args(request_args, required_args):
     return args
 
 
-async def get_records(day, time, line=None):
+async def get_records(
+    timestamp_from,
+    timestamp_to,
+    first_line=None,
+    line=None,
+):
     db = app.db()
-    params = {'day': day, 'time': time}
-    if line:
-        params['line'] = line
-    result = await db.tram_doc.find(params).to_list(None)
+    params = {
+        'time': {
+            '$gte': timestamp_from,
+            '$lte': timestamp_to,
+        }
+    }
+    if first_line or line:
+        params['first_line'] = first_line or line
+    result = await db.tram_results.find(params, {'_id': 0}).to_list(None)
     return result
 
 
 @app.route('/speed')
 async def speed_endpoint(request):
     request_args = parse_request_args(request.raw_args, {
-        'day': {'type_': int, 'required': True},
-        'time': {'type_': str, 'required': True},
+        'first_line': {'type_': int, 'required': False},
         'line': {'type_': int, 'required': False},
+        'timestamp_from': {'type_': int, 'required': True},
+        'timestamp_to': {'type_': int, 'required': True},
     })
     result = await get_records(**request_args)
     return json({'records': result})
