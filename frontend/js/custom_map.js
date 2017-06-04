@@ -14,8 +14,13 @@ var CustomMap = function CustomMap(
 };
 
 CustomMap.prototype.add_to_heatmap = function(heatmap_data) {
-  heatmap_layer.addData(test_data);
+  heatmap_layer.addData(heatmap_data);
 };
 CustomMap.prototype.update_heatmap = function(heatmap_data) {
-  heatmap_layer.setData(test_data);
+  console.log("Updating " + heatmap_data.length + " records.");
+  heatmap_layer.setData({
+    max: 80,
+    min: 0,
+    data: heatmap_data
+  });
 };

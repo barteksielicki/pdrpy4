@@ -5,13 +5,13 @@
     <title>PDRPY4</title>
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
     <link rel="stylesheet"
-          href="bower_components/wickedpicker/dist/wickedpicker.min.css">
+          href="bower_components/jt.timepicker/jquery.timepicker.css">
     <link rel="stylesheet"
           href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/wickedpicker/dist/wickedpicker.min.js"></script>
+    <script src="bower_components/jt.timepicker/jquery.timepicker.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/heatmap.js-amd/build/heatmap.js"></script>
@@ -31,20 +31,20 @@
             <div class="form-group">
               <label for="day-select">Dzień tygodnia: </label>
               <select name="day-select" class="form-control">
-                <option value="0">Niedziela</option>
-                <option value="1">Poniedziałek</option>
-                <option value="2">Wtorek</option>
-                <option value="3">Środa</option>
-                <option value="4">Czwartek</option>
-                <option value="5">Piątek</option>
-                <option value="6">Sobota</option>
+                <option value="2017-05-04">Czwartek (04.05)</option>
+                <option value="2017-05-05">Piątek (05.05)</option>
+                <option value="2017-05-06">Sobota (06.05)</option>
+                <option value="2017-05-07">Niedziela (07.05)</option>
+                <option value="2017-05-08">Poniedziałek (08.05)</option>
+                <option value="2017-05-09">Wtorek (09.05)</option>
+                <option value="2017-05-10">Środa (10.05)</option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="time-input">Godzina: </label>
               <br />
-              <input name="time-input" class="timepicker form-control" type="time">
+              <input name="time-input" class="timepicker form-control" type="text" value="0:00">
             </div>
 
             <div class="form-group">
@@ -52,7 +52,7 @@
               <input name="line-input" class="form-control" type="number">
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Pokaż</button>
           </form>
         </div>
 
@@ -61,7 +61,6 @@
         </div>
     </div>
 
-    <script src="js/tram.js"></script>
     <script src="js/custom_map.js"></script>
     <script src="js/index.js"></script>
   </body>
