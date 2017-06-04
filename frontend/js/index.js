@@ -44,7 +44,7 @@ var map = new CustomMap(
 
 
 var timepicker_options = {
-  timeFormat: "G:i", step: 60
+  timeFormat: "H:i", step: 60
 };
 $('.timepicker').timepicker(timepicker_options);
 
@@ -52,7 +52,7 @@ $("#main-form").submit(function (event) {
   event.preventDefault(); // to stop the form from submitting
   var hour = 60 * 60 * 1000;
   var dateFrom = new Date(
-    $("select[name='day-select']").val() + " " + $("input[name='time-input']").val()
+    $("select[name='day-select']").val() + "T" + $("input[name='time-input']").val()
   ).getTime() + (2 * hour);
   var dateTo = dateFrom + hour;
   var line = $("input[name='line-input']").val();
