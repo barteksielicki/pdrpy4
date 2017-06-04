@@ -69,6 +69,10 @@ $("#main-form").submit(function (event) {
   var query_params = {
     'timestamp_from': dateFrom, 'timestamp_to': dateTo
   };
+
+  if (line != "")
+    query_params['line'] = parseInt(line);
+
   $.get(API_URL, query_params)
     .done(function (data) {
       console.log("Done!");
@@ -78,3 +82,30 @@ $("#main-form").submit(function (event) {
       console.log("Error!");
     });
 });
+
+// tooltip
+var map_div = document.querySelector('#main-map');
+var tooltip = document.querySelector('.tooltip');
+
+function update_tooltip(x, y, value) {
+  // + 10 for distance to cursor
+  var transl = 'translate(' + (x + 10) + 'px, ' + (y + 10) + 'px)';
+  tooltip.style.webkitTransform = transl;
+  tooltip.innerHTML = value;
+};
+
+map_div.onmousemove = function(ev) {
+  var x = ev.layerX;
+  var y = ev.layerY;
+  var value = heatmap_layer._heatmap.getValueAt({
+    x: x,
+    y: y
+  });
+  console.log("x = ", x, "y = ", y, "speed = ", value);
+  tooltip.style.display = 'block';
+  update_tooltip(x, y, value);
+};
+// hide tooltip on mouseout
+map_div.onmouseout = function() {
+  tooltip.style.display = 'none';
+};
