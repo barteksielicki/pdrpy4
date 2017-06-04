@@ -21,7 +21,7 @@ class Worker:
         self.output_directory = output_directory
         self.distance_meter = DistanceMeter()
         self.df = pd.read_json(filename)
-        self.REPORTING_FREQUENCY = int(len(self.df)/20)
+        self.REPORTING_FREQUENCY = int(len(self.df)/1000)
         self.df.sort_values(["first_line", "brigade", "time"], inplace=True)
         self.run()
         self.save()
@@ -80,7 +80,7 @@ def show_progress(queues, progress_array):
     os.system("clear")
     for i, progress in enumerate(progress_array):
         print("Worker {}:".format(i))
-        print("{:6.2f}%  |{}{}|".format(
+        print("{:5.1f}%  |{}{}|".format(
             progress * 100,
             int(progress * PROGRESS_BAR_LENGTH) * "#",
             (PROGRESS_BAR_LENGTH - int(progress * PROGRESS_BAR_LENGTH)) * "-"
@@ -100,6 +100,6 @@ if __name__ == "__main__":
         rs = p.starmap_async(invoke_worker, worker_args, chunksize=1)
         while not rs.ready():
             show_progress(queues, progress)
-            sleep(1)
+            sleep(5)
         show_progress(queues, progress)
         print("Bye!")
