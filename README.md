@@ -84,6 +84,9 @@ Rekordy z pliku są załadowane do obiektu typu `pandas.DataFrame` a następnie 
    Obliczone prędkości są umieszczane w liście, która następnie jest dołączana do ramki danych
    jako kolejna kolumna (`velocity`), a sama ramka jest zapisywana do pliku `*.csv` w katalogu 
    `results`.
+   
+   
+   **Skonkatenowane wyniki znajdują się w skompresowanym pliku `results.csv.bz2`**
     
    
 ## Built with
