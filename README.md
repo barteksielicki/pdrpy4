@@ -5,6 +5,7 @@ Głównym zadaniem było skorzystanie z API transportu publicznego miasta Warsza
 oraz wykonanie analizy prowadzącej do ciekawych rezultatów.
 
 ## Aplikacja
+>Link do [aplikacji](http://192.166.219.242:4747/).
 
 Nasza aplikacja składa się z aplikacji webowej, której głównym zadaniem jest
 prezentowanie danych, które zostały przez nasz przetworzone a następnie
